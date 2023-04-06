@@ -1,11 +1,11 @@
 import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
-import TopBanner from "./Blah";
-import MovieList from "./Movies";
+//import logo from "./logo.svg";
+import "./main/App.css";
+//import TopBanner from "./Blah";
+//import MovieList from "./Movies";
 import { Link } from "react-router-dom";
 
-function Home() {
+function Home(props: any) {
   return (
     <>
       <div>
@@ -31,10 +31,16 @@ function Home() {
         <div className="col-2">
           <img src="./JoelHiltonHeadshot (1).jpg" alt="companyLogo" />
         </div>
-        <div className="col align-self-center text-start"></div>
+        <div className="col-3">
+        </div>
+        <div className="col-3">
+        </div>
+        <div className="col-2">
+          <p>{props.title}</p>
+        </div>
       </div>
-      <div>
-        <p>This is Joel's Movie Collection. Browse using the links</p>
+      <div className="col-4">
+        
       </div>
     </>
   );

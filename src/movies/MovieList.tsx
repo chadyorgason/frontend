@@ -1,29 +1,25 @@
-import { useState } from "react";
-import data from "./MovieData.json";
+import { useEffect, useState } from "react";
+import { Movie } from "../types/movies";
 import { Link } from "react-router-dom";
 
-const MovieStuff = data.MovieData;
+function MovieList1() {
+  const [movieData, setMovieData] = useState<Movie[]>([]);
 
-function MovieList() {
-  const [listOMovies, setListOMovies] = useState(MovieStuff);
+  useEffect (() => {
+    const fetchMovies = async () => {
+        const rsp = await fetch("https://localhost:4000/movie");
+        const temp = await rsp.json();
+        console.log(temp);
+        setMovieData(temp);
+    };
 
-  const addMovie = () =>
-    setListOMovies([
-      ...MovieStuff,
-      {
-        Category: "Action/Adventure",
-        Title: "Batman Returns",
-        Year: 1992,
-        Director: "Tim Burton",
-        Rating: "PG-13",
-        Edited: "No",
-
-      },
-    ]);
+  fetchMovies();
+  }, []);
 
   return (
     <>
-      <div>
+
+<div>
         <ul className="list-group list-group-flush">
           <>
             <Link to="/" className="list-group-item">
@@ -42,12 +38,13 @@ function MovieList() {
           </>
         </ul>
       </div>
-      <div>
+
+      <div className="row">
         <h1>Joel Hilton's Movie Collection:</h1>
       </div>
 
       <div>
-        <table className="table">
+        <table className="table table-bordered">
           <thead>
             <tr>
               <th>Category</th>
@@ -56,28 +53,28 @@ function MovieList() {
               <th>Director</th>
               <th>Rating</th>
               <th>Edited</th>
+              <th>Lent To</th>
+              <th>Notes</th>
             </tr>
           </thead>
           <tbody>
-            {listOMovies.map((m) => (
-              <tr>
-                <td>{m.Category}</td>
-                <td>{m.Title}</td>
-                <td>{m.Year}</td>
-                <td>{m.Director}</td>
-                <td>{m.Rating}</td>
-                <td>{m.Edited}</td>
+            {movieData.map((m) => (
+              <tr key={m.movieId}>
+                <td>{m.category}</td>
+                <td>{m.title}</td>
+                <td>{m.year}</td>
+                <td>{m.director}</td>
+                <td>{m.rating}</td>
+                <td>{m.edited}</td>
+                <td>{m.lentTo}</td>
+                <td>{m.notes}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
-
-      <button className="btn btn-primary" onClick={addMovie}>
-        Add Movie
-      </button>
     </>
   );
 }
 
-export default MovieList;
+export default MovieList1;

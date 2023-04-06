@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./Blah.module.css";
 import { Link } from "react-router-dom";
+import logo from "./logo.svg"
 
 function TopBanner(props: any) {
   return (
